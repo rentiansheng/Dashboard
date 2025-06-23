@@ -25,3 +25,6 @@ Bar Chart:
 
 Pie Chart:
 ![image](https://github.com/user-attachments/assets/7b9684ae-18c0-429f-9fd5-ed3136399a52)
+
+Custom Series:
+![image](https://github.com/user-attachments/assets/eaa94a98-af2e-4d04-8aaa-df87090a0fd3)
