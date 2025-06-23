@@ -15,4 +15,13 @@
 
 # 效果图
 
+Data List:
 ![image](https://github.com/user-attachments/assets/d62de904-e516-489a-8ef0-1e19a0f836da)
+
+Bar Chart:
+
+![image](https://github.com/user-attachments/assets/29562bb6-82b3-4022-bfad-227946272a1a)
+
+
+Pie Chart:
+![image](https://github.com/user-attachments/assets/7b9684ae-18c0-429f-9fd5-ed3136399a52)
