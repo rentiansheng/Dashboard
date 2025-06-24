@@ -16,7 +16,8 @@
 # 效果图
 
 Data List:
-![image](https://github.com/user-attachments/assets/d62de904-e516-489a-8ef0-1e19a0f836da)
+![image](https://github.com/user-attachments/assets/ce55f43a-d1eb-4627-9748-f1ef4f77d5ba)
+
 
 Bar Chart:
 
