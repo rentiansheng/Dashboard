@@ -1,0 +1,21 @@
+# Server configuration
+
+log_level: "info"
+
+server:
+  port: "8080"
+  read_timeout: "100s"
+  write_timeout: "100s"
+  shutdown_timeout: "15s"
+  log_level: "info"
+
+engine:
+  engine_type: "mysql"
+  is_all: true
+  default_engine_config:
+    dsn: "user:pwd@tcp(127.0.0.1:3306)/dashboard?charset=utf8mb4&parseTime=True&loc=Local"
+es:
+  addrs:
+    - "http://127.0.0.1:9200"
+  username: ""
+  password: ""

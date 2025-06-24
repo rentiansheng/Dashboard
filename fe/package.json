@@ -1,0 +1,57 @@
+{
+  "name": "dashboard-fe",
+  "version": "1.0.0",
+  "description": "Dashboard with sidebar menu built with React and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "@ahooksjs/use-url-state": "^3.5.1",
+    "@ant-design/charts": "^2.2.7",
+    "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.8.9",
+    "@tanstack/react-query": "^5.80.7",
+    "@types/lodash": "^4.17.17",
+    "ahooks": "^3.8.5",
+    "antd": "^5.12.8",
+    "axios": "^1.9.0",
+    "data-forge": "^1.10.4",
+    "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router": "^7.6.2",
+    "react-router-dom": "^6.20.1",
+    "react-splitter-layout": "^4.0.0",
+    "react-use": "^17.6.0",
+    "sass-embedded": "^1.89.2",
+    "styled-components": "^6.1.18",
+    "utility-types": "^3.11.0",
+    "yapi-to-typescript": "^3.38.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "dashboard",
+    "sidebar",
+    "antd"
+  ],
+  "author": "",
+  "license": "MIT"
+}

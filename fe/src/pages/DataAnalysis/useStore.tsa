@@ -1,0 +1,110 @@
+// import { DataSourceService } from '@/services';
+// import { useDataSourceChart } from './useDataSourceChart';
+// import { useDataSourceMeta } from './useDataSourceMeta';
+// import { useRequest } from 'ahooks';
+// import { useState, useMemo } from 'react';
+// import { ClientCondition } from './types';
+// import { chain } from 'lodash';
+
+
+// export type BaseState = {
+//   date: {
+//     start: number;
+//     end: number;
+//   };
+//   conditionFields: string[];
+// };
+
+
+// export default function useStore() {
+//   const [dataSourceId, setDataSourceId] = useState<number>();
+//   const { data: dataSources, loading: loadingDataSource } = useRequest(
+//     DataSourceService.getDataSourceList,
+//   );
+
+//   const { metas, loading: loadingDataSourceMeta } = useDataSourceMeta(dataSourceId);
+
+//   const dataSourceValueEnum = useMemo(() => {
+//     return chain(dataSources)
+//       .map((item) => [item.id, item.name])
+//       .fromPairs()
+//       .value();
+//   }, [dataSources]);
+
+//   const timeFieldsValueEnum = useMemo(() => {
+//     return chain(metas)
+//       .filter((meta) => meta.data.type === 'date')
+//       .map((meta) => [meta.data.name, meta.data.display_name])
+//       .fromPairs()
+//       .value();
+//   }, [metas]);
+
+//   const sortFieldsValueEnum = useMemo(() => {
+//     return chain(metas)
+//       .filter((meta) => meta.data.type === 'number')
+//       .map((meta) => [meta.data.name, meta.data.display_name])
+//       .fromPairs()
+//       .value();
+//   }, [metas]);
+
+//   const findDataSource = (id: number) => {
+//     return dataSources?.find((item) => item.id === id);
+//   };
+
+//   const [sortValue, setSortValue] = useState<string>();
+//   const [defaultColumnsState, setDefaultColumnsState] = useState<any>();
+//   const [backendColumnState, setBackendColumnState] = useState<any>();
+
+//   const columns = useMemo(() => {
+//     return metas?.map((meta) => ({
+//       title: meta.data.display_name,
+//       dataIndex: meta.data.name,
+//       valueType: meta.data.type,
+//     }));
+//   }, [metas]);
+
+//   const getTableParams = ({ formValue, dataSource, deptId }: any) => {
+//     return async (params: any) => {
+//       return {
+//         ...params,
+//         data_source_id: dataSource?.id,
+//         department_id: deptId,
+//         sort_field: sortValue,
+//       };
+//     };
+//   };
+
+//   const syncBaseState = ({ date, conditionFields }: any) => {
+//     // TODO: Implement sync base state
+//   };
+
+//   const {
+//     config: chartConfig,
+//     data: chartData,
+//     request: requestChart,
+//     loading: chartLoading,
+//   } = useDataSourceChart();
+
+//   return {
+//     findDataSource,
+//     dataSourceValueEnum,
+//     setDataSourceId,
+//     loadingDataSource,
+//     loadingDataSourceMeta,
+//     timeFieldsValueEnum,
+//     sortFieldsValueEnum,
+//     syncBaseState,
+//     metas,
+//     columns,
+//     getTableParams,
+//     sortValue,
+//     defaultColumnsState,
+//     setDefaultColumnsState,
+//     backendColumnState,
+//     setSortValue,
+//     requestChart,
+//     chartConfig,
+//     chartData,
+//     chartLoading,
+//   };
+// } 
