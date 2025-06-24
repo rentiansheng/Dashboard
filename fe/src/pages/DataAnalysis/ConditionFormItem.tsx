@@ -103,8 +103,13 @@ export const ConditionFormItem = (props: IProps) => {
           valueEnum: operatorValueEnum,
         }}
       />,
-      <ProFormDependency key="value" name={['operator']}>
+      <ProFormDependency key="value"  name={['operator']}>
         {({ operator }) => {
+          let valueEnumMap = getMetaField(data.field) ? valueEnum(getMetaField(data.field)!) : {};
+          // 如果valueEnumMap 有值，则将operator 设置为 select
+          if (valueEnumMap && Object.keys(valueEnumMap).length > 0) {
+            operator = "select"
+          }
           return (
             <ProFormField
               key="value"
@@ -113,8 +118,14 @@ export const ConditionFormItem = (props: IProps) => {
                 size: 'small',
                 name: 'value',
                 readonly,
-                valueEnum: valueEnum(getMetaField(data.field))
-                
+                valueEnum: getMetaField(data.field) ? valueEnum(getMetaField(data.field)!) : {},
+                fieldProps: {
+                  showSearch: true,
+                  allowClear: true,
+                  placeholder: '请输入或选择',
+                  mode: "tags",
+                  tokenSeparators: [','," "]
+                },
               }}
             />
           );

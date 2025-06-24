@@ -26,6 +26,10 @@ export enum MetaValueType {
   BOOL = 'bool',
 }
 
+export const MetaTypeIsNumber = (value: any) => {
+  return value === MetaValueType.ES_TIME || value === MetaValueType.TIME || value === MetaValueType.INT;
+}
+
 export enum XAxisBy {
   TIME = 'time',
   DIMENSION = 'dimension',

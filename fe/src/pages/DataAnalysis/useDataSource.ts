@@ -28,10 +28,11 @@ export default function useDataSource() {
     }
     switch(enumInfo.type) {
       case 'kv':
-        return chain(enumInfo.values)
+        const res = chain(enumInfo.values)
           .map((key, value) => [key, value])
           .fromPairs()
           .value();
+        return res;
         case 'array':
             return chain(enumInfo.values)
             .map((value) => [value, value])
