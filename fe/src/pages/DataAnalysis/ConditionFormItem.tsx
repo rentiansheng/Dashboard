@@ -11,6 +11,7 @@ import { pickBy } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { Condition, OperatorType } from './types';
 import { MetaSchema } from './useDataSourceMeta';
+import useDataSource from './useDataSource';
 
 interface IProps {
   formListProps: any;
@@ -64,6 +65,11 @@ export const ConditionFormItem = (props: IProps) => {
     remove: () => action.remove(index),
   };
 
+ 
+  const {
+    valueEnum
+  } = useDataSource()
+
   const getListDom = (data: Condition, action: any, readonly?: boolean) => {
     const isActive = isConditionActive(data);
     const operatorValueEnum = enabledOperators
@@ -107,6 +113,7 @@ export const ConditionFormItem = (props: IProps) => {
                 size: 'small',
                 name: 'value',
                 readonly,
+                valueEnum: valueEnum(getMetaField(data.field))
                 
               }}
             />

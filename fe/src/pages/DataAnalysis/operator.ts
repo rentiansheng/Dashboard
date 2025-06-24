@@ -153,6 +153,7 @@ export const getValueFieldConfig = (type: MetaValueType, operator: OperatorType)
         tokenSeparators: [',', ' '], // 用户可以用逗号、空格分隔输入
       
       },
+
     };
   }
   

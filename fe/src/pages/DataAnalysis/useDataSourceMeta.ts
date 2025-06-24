@@ -21,6 +21,7 @@ export interface MetaSchema  extends ProSchema{
     nested?: boolean;
     action?: ApiDataSourceMetaFieldAction;
     data_type: string;
+    enum: MetaSchemaValueEnumType;
     operators:  Partial<Record<OperatorType, string>>,
     defaultValue?: any;
     defaultOperator: OperatorType | undefined;
@@ -33,6 +34,16 @@ export interface MetaSchema  extends ProSchema{
   getValueField: (operator: string) => any;
 }
 
+export interface MetaSchemaValueEnumType {
+  api: {
+    path: string;
+    dynamic: boolean;
+  };
+  values: {
+    type: string;
+    values: any;
+  };
+}
  
 
 export function useDataSourceMeta(dataSourceId?: number) {

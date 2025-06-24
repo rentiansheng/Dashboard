@@ -16,17 +16,31 @@ export default function useDataSource() {
 
   const list = dataSources?.data?.list;
 
-  const valueEnum: ProFieldValueEnumType = useMemo(() => {
-    return chain(list)
-      .keyBy('id')
-      .mapValues((value) => {
-        const enumValue: ProSchemaValueEnumType = {
-          text: value.name,
-        };
-        return enumValue;
-      })
-      .value();
-  }, [list]);
+  const valueEnum= (meta: MetaSchema) : ProFieldValueEnumType => {
+    // TODO: metaEnum.api 存在调用api逻辑，后续处理
+    if(!meta || !meta.data)  {
+      return {};
+    };
+    // 当前只有配置enum值
+    const enumInfo = meta.data?.enum.values
+    if(!enumInfo || !enumInfo.type) {
+      return  {} ;
+    }
+    switch(enumInfo.type) {
+      case 'kv':
+        return chain(enumInfo.values)
+          .map((key, value) => [key, value])
+          .fromPairs()
+          .value();
+        case 'array':
+            return chain(enumInfo.values)
+            .map((value) => [value, value])
+            .fromPairs()
+            .value();
+    }
+
+    return {};
+  };
 
   const find = useCallback(
     (id: number) => {
@@ -87,24 +101,20 @@ export default function useDataSource() {
 
   const columns = useMemo(() => {
     return metas?.map((meta: MetaSchema) => {
-      const fieldName = meta.data.name?.toLowerCase() || '';
       const fieldType = meta.data.data_type || 'string';
-      
-     
    
       return {
         title: meta.data.display_name || meta.data.name || 'Unknown',
         dataIndex: meta.dataIndex,
         valueType: fieldType,
+        valueEnum: valueEnum(meta),
         render: (value: any, record: any) => {
           // 调试信息
-          console.log(`Rendering field: ${fieldName}, type: ${fieldType}, valueMapType: ${fieldType}, value:`, value);
           
           // 检查 ValueTypeMap 中是否有对应的渲染器
           if (ValueTypeMap[fieldType] && ValueTypeMap[fieldType].render) {
             try {
               const result = ValueTypeMap[fieldType].render!(value, { text: value, mode: 'read' }, {} as any);
-              console.log(`ValueMap render result:`, result);
               return result;
             } catch (error) {
               console.warn(`${fieldType} render failed:`, error);
@@ -182,5 +192,6 @@ export default function useDataSource() {
     chartConfig,
     chartData,
     chartLoading,
+    valueEnum,
   };
 }

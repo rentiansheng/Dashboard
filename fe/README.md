@@ -19,6 +19,60 @@
 - **样式系统**: 支持 SCSS 和 Styled Components
 - **代码规范**: ESLint 代码质量检查
 
+### 枚举转化系统
+
+项目实现了一套完整的枚举转化工具，支持将枚举常量转换为各种格式：
+
+#### 核心功能
+
+1. **基础枚举转化**
+   - 获取枚举选项列表
+   - 转换为 Ant Design 组件的 valueEnum 格式
+   - 支持简单枚举和复杂枚举（带图标和标签）
+
+2. **标签获取**
+   - 获取枚举值对应的显示标签
+   - 支持值到标签和标签到值的双向映射
+
+3. **值验证**
+   - 验证单个枚举值是否有效
+   - 批量验证枚举值
+
+4. **枚举配置**
+   - 预定义枚举配置
+   - 支持自定义配置（标签、图标、禁用状态等）
+
+5. **统计信息**
+   - 获取枚举的统计信息（键数量、值数量、选项数量等）
+
+#### 使用示例
+
+```typescript
+import { 
+  getChartTypeOptions, 
+  getChartTypeLabel, 
+  isValidChartType 
+} from '@/constants/options';
+
+// 获取图表类型选项
+const chartTypes = getChartTypeOptions();
+
+// 获取图表类型标签
+const label = getChartTypeLabel('column');
+
+// 验证图表类型
+const isValid = isValidChartType('column');
+```
+
+#### 支持的枚举类型
+
+- **图表类型** (CHART_TYPE): column, line, pie
+- **时间周期** (CYCLE): YEAR, QUARTER, MONTH, WEEK  
+- **聚合类型** (AGG_TYPE): COUNT, AVERAGE, SUM
+- **X轴类型** (XAXIS_BY): TIME, DIMENSION
+
+详细使用文档请参考 [枚举转化工具使用指南](./docs/enum-utils.md)
+
 ## 🛠 技术栈
 
 ### 前端框架

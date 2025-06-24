@@ -98,7 +98,6 @@ export const ConditionForm = memo(
     }, [conditionFieldMenus, searchText, usedConditionKeys]);
     const getMetaField = (metaKey: string) => {
       const res =  metas.find((item) => item.dataIndex === metaKey);
-      console.log(res);
       return res;
     };
 
