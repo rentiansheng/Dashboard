@@ -2,18 +2,18 @@ package code
 
 const (
 	// JSONDecodeErrCode request body decode error. err: %s
-	JSONDecodeErrCode int32 = 10000
+	JSONDecodeErrCode int32 = 1010000
 	// ConvertToErrCode field %s convert type(%s) error(%s).
-	ConvertToErrCode int32 = 10006
+	ConvertToErrCode int32 = 1010002
 	// InstNotFoundKVCode %v not found. %v: %v
-	InstNotFoundKVCode int32 = 10008
+	InstNotFoundKVCode int32 = 1010003
 	// TemplateFormatErr  template format error. %v
-	TemplateFormatErr int32 = 10011
+	TemplateFormatErr int32 = 1010004
 	// TemplateBuildErr  template build error. %v
-	TemplateBuildErr int32 = 10012
+	TemplateBuildErr int32 = 1010005
 
 	// MapperActionErrCode  mapper error. action: %s, err: %s
-	MapperActionErrCode int32 = 10019
+	MapperActionErrCode int32 = 1010006
 	// FileNotFoundErrCode file not found. file name: %s
-	FileNotFoundErrCode int32 = 10027
+	FileNotFoundErrCode int32 = 1010007
 )
