@@ -14,6 +14,11 @@ const ()
 type ExtraFilterFn func(ctx context.Context, dataSource define.MetricDataSource, id uint64) (ges.Filter, errors.Error)
 
 func ExtraGroupKeyFilterFn(ctx context.Context, dataSource define.MetricDataSource, id uint64) (ges.Filter, errors.Error) {
+	const skipGroupKey = "-"
+	if dataSource.GroupKey == skipGroupKey {
+		// 如果没有group key，则不需要额外的过滤
+		return nil, nil
+	}
 	if dataSource.EnableGroupKeyName {
 		// 需要用names
 		names, err := repository.GroupKey().AllChildrenRelationNames(ctx, id)

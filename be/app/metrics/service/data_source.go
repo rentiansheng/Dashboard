@@ -143,12 +143,8 @@ func (d *DataSourceServiceImpl) adjustDataSourceQuery(ctx context.Context, dataS
 	if err != nil {
 		return nil, err
 	}
-	fields := make([]define.MetricDataSourceMeta, 0, len(metas))
-	if err := ctx.Mapper("query metric. mapper data source", metas, &fields); err != nil {
+	if err := format.AdjustQueryInput(ctx, dataSourceName, metas, input, isDetail); err != nil {
 		return nil, err
 	}
-	if err := format.AdjustQueryInput(ctx, dataSourceName, fields, input, isDetail); err != nil {
-		return nil, err
-	}
-	return fields, nil
+	return metas, nil
 }
