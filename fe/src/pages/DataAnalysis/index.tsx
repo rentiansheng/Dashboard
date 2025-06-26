@@ -224,12 +224,16 @@ const convertFormValueToClientCondition = (formValue: FormValue): ClientConditio
       return;
     }
 
-    // 合并分页参数
+    // 合并分页参数 - 确保分页参数正确传递
+    const pageNum = params.current || 1;
+    const pageSize = params.pageSize || 20;
+    
+
     return {
       ...baseRequest,
       page: {
-        page_num: params.current || 1,
-        page_size: params.pageSize || 20,
+        page_num: pageNum,
+        page_size: pageSize,
       },
     };
   };
@@ -315,6 +319,8 @@ const convertFormValueToClientCondition = (formValue: FormValue): ClientConditio
           .value() || [],
     });
     if (tab === 'Table') {
+      // 重新查询时重置到第一页
+      setPaginationState(prev => ({ ...prev, current: 1 }));
       actionRef.current?.reload();
     } else {
       const condition = convertFormValueToClientCondition(formValue);
@@ -353,17 +359,31 @@ const convertFormValueToClientCondition = (formValue: FormValue): ClientConditio
   );
 
   const [enabledAdvancedConfig, setEnabledAdvancedConfig] = useState(false);
+  
+  // 分页状态管理 - 从本地存储读取用户偏好
+  const [paginationState, setPaginationState] = useState(() => {
+    const savedPageSize = localStorage.getItem('table_page_size_preference');
+    return {
+      current: 1,
+      pageSize: savedPageSize ? parseInt(savedPageSize, 10) : 20,
+    };
+  });
 
   // 包装 DataSourceService.getDataSourceQueryTable 以适配 ProQueryTable 期望的格式
   const handleTableRequest = async (params: any) => {
     try {
+      
       const response = await DataSourceService.getDataSourceQueryTable(params);
       
       // 确保返回正确的格式：{ list: [], total: number }
-      return {
+      const result = {
         list: response.data?.list || [],
         total: response.data?.total || 0,
       };
+      
+
+      
+      return result;
     } catch (error) {
       console.error('Table request failed:', error);
       return {
@@ -463,6 +483,57 @@ const convertFormValueToClientCondition = (formValue: FormValue): ClientConditio
                       value: defaultColumnsState ?? backendColumnState,
                       defaultValue: backendColumnState,
                       onChange: setDefaultColumnsState,
+                    },
+                    // 分页配置
+                    pagination: {
+                      current: paginationState.current,
+                      pageSize: paginationState.pageSize,
+                      pageSizeOptions: ['10', '20', '50', '100'],
+                      showSizeChanger: true,
+                      showQuickJumper: true,
+                      showTotal: (total, range) => 
+                        `第 ${range[0]}-${range[1]} 条/共 ${total} 条`,
+                      position: ['bottomCenter'],
+                      size: 'default',
+                      // 页码改变的回调
+                      onChange: (page, pageSize) => {
+                        
+                        // 更新分页状态
+                        setPaginationState({
+                          current: page,
+                          pageSize: pageSize || paginationState.pageSize,
+                        });
+                        actionRef.current?.reload();;
+                        // 可以添加其他自定义逻辑
+                        // 例如：记录用户行为
+                        // trackUserBehavior('pagination_change', { page, pageSize });
+                        
+                        // 例如：更新URL参数（用于刷新页面后保持分页状态）
+                        // const url = new URL(window.location.href);
+                        // url.searchParams.set('page', page.toString());
+                        // url.searchParams.set('pageSize', (pageSize || paginationState.pageSize).toString());
+                        // window.history.replaceState({}, '', url.toString());
+                      },
+                      // 页面大小改变的回调
+                      onShowSizeChange: (current, size) => {
+                        // 只有size 改变,才需要回到第一页
+                        if (size !== paginationState.pageSize) {
+                          current = 1;
+                          localStorage.setItem('table_page_size_preference', size.toString());
+                        } 
+                        setPaginationState({
+                          current: current,
+                          pageSize: size,
+                        });
+                    
+                        
+                        // 保存用户偏好设置到本地存储
+                        actionRef.current?.reload();
+
+                        // 可以添加其他自定义逻辑
+                        // 例如：记录分析数据
+                        // trackUserBehavior('page_size_change', { oldSize: paginationState.pageSize, newSize: size });
+                      },
                     },
                     toolbar: {
                       subTitle: [

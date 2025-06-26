@@ -107,7 +107,6 @@ export const ConditionForm = memo(
       lastChangedRef.current = false;
       let formValue = formInstance.getFieldsValue(); 
 
-      console.log("onQuery",formInstance.getFieldsValue(),formValue);
       onSearchLatestRef.current?.(formValue.condition?.filter(isConditionActive) || []);
     }, [formInstance, onSearchLatestRef]);
 
